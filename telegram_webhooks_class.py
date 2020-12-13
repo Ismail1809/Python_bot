@@ -120,7 +120,7 @@ class Logic():
 			login = b[0][2]
 			block = self.db.get_user()
 			for i in range(len(block)):
-				if block[i][0] == str(chat_id) and block[i][1] == str(login) and block[i][2] == str(password):			
+				if block[i][1] == str(login) and block[i][2] == str(password):			
 					self.answer.send_message(chat_id, "You are successfully log in!!\n")
 					self.answer.send_message(chat_id, "Hello " + str(login) + "!\n")
 					self.answer.send_message(chat_id, "Do you want to log out?(yes or no)")
