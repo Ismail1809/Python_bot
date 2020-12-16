@@ -5,13 +5,16 @@ import time
 
 class Bot_Logic():
 
-	def set_database(self, database):
-		self.db = database
-
+	def set_database(self):
+		self.db = DataBase.Bot_Database()
+		self.db.create_db()
+		
 	def set_telegram(self, telegram):
 		self.answer = telegram
 
 	def check_main(self, text, chat_id):
+		self.set_database()
+
 		if text == "/start":
 			check = self.check_user(chat_id)
 			if check==False:

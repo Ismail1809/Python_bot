@@ -44,10 +44,6 @@ if __name__ == "__main__":
 	telegram.set_logic(logic)
 
 	logic.set_telegram(telegram)
-
-	database = DataBase.Bot_Database()
-
-	logic.set_database(database)
-
+	logic.set_database()
 
 	telegram.start()

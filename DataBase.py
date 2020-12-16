@@ -2,6 +2,10 @@ import sqlite3
 
 class Bot_Database():
 	def __init__(self):
+		self.conn = None
+		self.corsor = None
+
+	def create_db(self):
 		self.conn = sqlite3.connect("users_list.db")
 
 		self.cursor = self.conn.cursor()
@@ -9,7 +13,6 @@ class Bot_Database():
 		self.conn.commit()
 		self.cursor.execute("CREATE TABLE IF NOT EXISTS act (chat_id text, last_act text, last_login text)")
 		self.conn.commit()
-
 
 	def add_user(self, login, password, chat_id):
 		block = [(chat_id, login, password)]
