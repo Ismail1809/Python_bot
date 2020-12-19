@@ -4,17 +4,13 @@ import time
 
 
 class Bot_Logic():
-
-	def set_database(self):
+	def set_db(self):
 		self.db = DataBase.Bot_Database()
-		self.db.create_db()
-		
+
 	def set_telegram(self, telegram):
 		self.answer = telegram
 
 	def check_main(self, text, chat_id):
-		self.set_database()
-
 		if text == "/start":
 			check = self.check_user(chat_id)
 			if check==False:
@@ -28,7 +24,8 @@ class Bot_Logic():
 		else:
 			self.get_action(chat_id, text)
 	def check_user(self, chat_id):
-		list1 =self.db.get_data(chat_id)
+		self.set_db()
+		list1 = self.db.get_data(chat_id)
 		if list1!=[]:
 			if list1[0][0] == str(chat_id):
 				return True

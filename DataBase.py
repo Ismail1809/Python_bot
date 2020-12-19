@@ -17,11 +17,26 @@ class Bot_Database():
 	def add_user(self, login, password, chat_id):
 		block = [(chat_id, login, password)]
 
-		self.cursor.executemany("INSERT INTO users VALUES(?, ?, ?);", block)
-		self.conn.commit()
+		if self.conn != None:
+			self.cursor.executemany("INSERT INTO users VALUES(?, ?, ?);", block)
+			self.conn.commit()
+		else:
+			self.create_db()
+
+			self.cursor.executemany("INSERT INTO users VALUES(?, ?, ?);", block)
+			self.conn.commit()
 	def get_user(self):
-		self.cursor.execute("SELECT * FROM users")
-		data = self.cursor.fetchall()
+		data = ""
+
+		if self.conn != None:
+
+			self.cursor.execute("SELECT * FROM users")
+			data = self.cursor.fetchall()
+		else:
+			self.create_db()
+
+			self.cursor.execute("SELECT * FROM users")
+			data = self.cursor.fetchall()
 
 		return data
 	def delete(self):
@@ -35,17 +50,42 @@ class Bot_Database():
 	def add_data(self, chat_id, last_action, data):
 		block = [(chat_id, last_action, data)]
 
-		self.cursor.executemany("INSERT INTO act VALUES(?, ?, ?);", block)
-		self.conn.commit()
+		if self.conn != None:
+
+			self.cursor.executemany("INSERT INTO act VALUES(?, ?, ?);", block)
+			self.conn.commit()
+		else:
+			self.create_db()
+
+			self.cursor.executemany("INSERT INTO act VALUES(?, ?, ?);", block)
+			self.conn.commit()
+
 	def get_data(self, chat_id):
 		t = (chat_id, )
-		self.cursor.execute("SELECT * FROM act WHERE chat_id=?", t)
-		data = self.cursor.fetchall()
+		data = ""
+
+		if self.conn != None:
+			self.cursor.execute("SELECT * FROM act WHERE chat_id=?", t)
+			data = self.cursor.fetchall()
+		else:
+			self.create_db()
+
+			self.cursor.execute("SELECT * FROM act WHERE chat_id=?", t)
+			data = self.cursor.fetchall()
 
 		return data
+
 	def change_action(self, chat_id, text, action):
 		block = [(text, chat_id)]
-		self.cursor.execute("UPDATE act SET last_login = ? WHERE chat_id = ?;", (text, chat_id))
 		block = [(action, chat_id)]
-		self.cursor.execute("UPDATE act SET last_act = ? WHERE chat_id = ?;", (action, chat_id))
-		self.conn.commit()
+
+		if self.conn != None:
+			self.cursor.execute("UPDATE act SET last_login = ? WHERE chat_id = ?;", (text, chat_id))
+			self.cursor.execute("UPDATE act SET last_act = ? WHERE chat_id = ?;", (action, chat_id))
+			self.conn.commit()
+		else:
+			self.create_db()
+
+			self.cursor.execute("UPDATE act SET last_login = ? WHERE chat_id = ?;", (text, chat_id))
+			self.cursor.execute("UPDATE act SET last_act = ? WHERE chat_id = ?;", (action, chat_id))
+			self.conn.commit()
