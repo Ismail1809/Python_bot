@@ -28,37 +28,30 @@ class Bot_Database():
 	def get_user(self):
 		data = ""
 
-		if self.conn != None:
-
-			self.cursor.execute("SELECT * FROM users")
-			data = self.cursor.fetchall()
-		else:
+		if self.conn == None:
 			self.create_db()
 
-			self.cursor.execute("SELECT * FROM users")
-			data = self.cursor.fetchall()
+		self.cursor.execute("SELECT * FROM users")
+		data = self.cursor.fetchall()
 
 		return data
-	def delete(self):
-		# block = [("1114074475", "asas", "cd")]
+	# def delete(self):
+	# 	# block = [("1114074475", "asas", "cd")]
 
-		# self.cursor.executemany("INSERT INTO act VALUES(?, ?, ?);", block)
-		# self.conn.commit()
+	# 	# self.cursor.executemany("INSERT INTO act VALUES(?, ?, ?);", block)
+	# 	# self.conn.commit()
 
-		self.cursor.execute("DELETE FROM users")
-		self.conn.commit()
+	# 	self.cursor.execute("DELETE FROM users")
+	# 	self.conn.commit()
 	def add_data(self, chat_id, last_action, data):
 		block = [(chat_id, last_action, data)]
 
-		if self.conn != None:
-
-			self.cursor.executemany("INSERT INTO act VALUES(?, ?, ?);", block)
-			self.conn.commit()
-		else:
+		if self.conn == None:
 			self.create_db()
 
-			self.cursor.executemany("INSERT INTO act VALUES(?, ?, ?);", block)
-			self.conn.commit()
+
+		self.cursor.executemany("INSERT INTO act VALUES(?, ?, ?);", block)
+		self.conn.commit()
 
 	def get_data(self, chat_id):
 		t = (chat_id, )
