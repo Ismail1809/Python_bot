@@ -11,21 +11,27 @@ class Bot_Logic():
 		self.answer = telegram
 
 	def check_main(self, text, chat_id):
-		if text == "/start":
-			check = self.check_user(chat_id)
+		check = self.check_user(chat_id)
+		if check=="error":
+			text = "Sorry, but bot is not available now"
+			self.answer.send_message(chat_id, text)
+			return
+		elif text == "/start":
 			if check==False:
 				print(1)
 				self.put_action(chat_id, "assd", text)
 			else:
 				print(2)
 				self.db.change_action(chat_id, text, "asas")
-
-			self.get_action(chat_id, text)
 		else:
 			self.get_action(chat_id, text)
+
+		self.get_action(chat_id, text)
 	def check_user(self, chat_id):
 		list1 = self.db.get_data(chat_id)
-		if list1!=[]:
+		if list1!="Error":
+			return "error"
+		elif list1!=[]:
 			if list1[0][0] == str(chat_id):
 				return True
 			else:

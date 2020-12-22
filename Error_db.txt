@@ -1,0 +1,12 @@
+SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 16712 and this is thread id 16056.
+SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 8692 and this is thread id 20016.
+SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 8692 and this is thread id 14028.
+SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 8692 and this is thread id 7832.
+SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 2080 and this is thread id 7768.
+SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 2080 and this is thread id 88.
+SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 2080 and this is thread id 14940.
+SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 2080 and this is thread id 11984.
+SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 2080 and this is thread id 4808.
+SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 2080 and this is thread id 5892.
+SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 2080 and this is thread id 15672.
+SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 2080 and this is thread id 14268.
