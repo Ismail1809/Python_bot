@@ -7,7 +7,7 @@ class Bot_Database():
 
 	def create_db(self):
 		try:
-			self.conn = sqlite3.connect("users_list.db")
+			self.conn = sqlite3.connect("users_list.db", check_same_thread=False)
 
 			self.cursor = self.conn.cursor()
 			self.cursor.execute("CREATE TABLE IF NOT EXISTS users (chat_id text, login text, password text)")
@@ -23,14 +23,11 @@ class Bot_Database():
 		block = [(chat_id, login, password)]
 
 		try:
-			if self.conn != None:
-				self.cursor.executemany("INSERT INTO users VALUES(?, ?, ?);", block)
-				self.conn.commit()
-			else:
+			if self.conn == None:
 				self.create_db()
 
-				self.cursor.executemany("INSERT INTO users VALUES(?, ?, ?);", block)
-				self.conn.commit()
+			self.cursor.executemany("INSERT INTO users VALUES(?, ?, ?);", block)
+			self.conn.commit()
 		except Exception as e:
 			file1 = open("Error_db.txt", "a")
 			file1.write(str(e)+"\n")
@@ -77,14 +74,11 @@ class Bot_Database():
 		t = (chat_id, )
 		data = ""
 		try:
-			if self.conn != None:
-				self.cursor.execute("SELECT * FROM act WHERE chat_id=?", t)
-				data = self.cursor.fetchall()
-			else:
+			if self.conn == None:
 				self.create_db()
 
-				self.cursor.execute("SELECT * FROM act WHERE chat_id=?", t)
-				data = self.cursor.fetchall()
+			self.cursor.execute("SELECT * FROM act WHERE chat_id=?", t)
+			data = self.cursor.fetchall()
 			return data
 		except Exception as e:
 			file1 = open("Error_db.txt", "a")
@@ -97,16 +91,12 @@ class Bot_Database():
 		block = [(action, chat_id)]
 
 		try:
-			if self.conn != None:
-				self.cursor.execute("UPDATE act SET last_login = ? WHERE chat_id = ?;", (text, chat_id))
-				self.cursor.execute("UPDATE act SET last_act = ? WHERE chat_id = ?;", (action, chat_id))
-				self.conn.commit()
-			else:
+			if self.conn == None:
 				self.create_db()
 
-				self.cursor.execute("UPDATE act SET last_login = ? WHERE chat_id = ?;", (text, chat_id))
-				self.cursor.execute("UPDATE act SET last_act = ? WHERE chat_id = ?;", (action, chat_id))
-				self.conn.commit()
+			self.cursor.execute("UPDATE act SET last_login = ? WHERE chat_id = ?;", (text, chat_id))
+			self.cursor.execute("UPDATE act SET last_act = ? WHERE chat_id = ?;", (action, chat_id))
+			self.conn.commit()
 		except Exception as e:
 			file1 = open("Error_db.txt", "a")
 			file1.write(str(e)+"\n")
